@@ -10,9 +10,13 @@ function App() {
   const [FullName , SetFullName] = useState("");
 
 
-  const handleSubmit=(e) => {e.preventDefault()
+  const handleSubmit=(e) => {
+    
+    e.preventDefault()
     // console.log(e)
-    SetFullName(`${FirstName} ${LastName}`);
+
+   SetFullName(FirstName && LastName ? `${FirstName} ${LastName}` : '');
+
   }
 
 
@@ -21,14 +25,26 @@ function App() {
       <div style={{ /*backgroundColor:"#0099aa",*/ display:"flex", width:"50%",flexDirection:"column"}}>
     
        <form onSubmit={handleSubmit}> 
+
+    <h2>Full Name Display</h2>
     <div style={{display:"flex",alignItems: "center", width:"50%",flexDirection:"row",margin:"10px"}}>
     <label>First Name:</label>
-    <input placeholder="First Name"  onChange={e=>SetFirstName(e.target.value)} required style={{}}/>
+    <input  
+    required 
+    placeholder="First Name" 
+    type="text"  
+    onInvalid={(e) => SetFullName("")}
+    onChange={e=>SetFirstName(e.target.value)}  style={{}}/>
     </div>
 
     <div style={{display:"flex",alignItems: "center", width:"50%",flexDirection:"row",margin:"10px"}}>
     <label>Last Name:</label>
-    <input placeholder="Last Name" required  onChange={e=>SetLastName(e.target.value)} style={{}}/>
+    <input 
+    required 
+    placeholder="Last Name" 
+    type="text" 
+    onInvalid={(e) => SetFullName("")}
+    onChange={e=>SetLastName(e.target.value)} style={{}}/>
     </div>
 
 
@@ -36,8 +52,8 @@ function App() {
 
 
     </form>
-    <div id="op" className="Fullname" style={{fontSize:"15px",padding:"10px",display:"flex",textAlign:"left"}}>{FullName  && `Full Name: ${FullName}`} </div>
-
+   {FullName && ( <div id="op" className="Fullname" style={{fontSize:"15px",padding:"10px",display:"flex",textAlign:"left"}}>{FullName  && `Full Name: ${FullName}`} </div>
+   )}
     </div>
     </div>
   );
